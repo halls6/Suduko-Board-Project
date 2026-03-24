@@ -114,7 +114,7 @@ printf("BOARD STATE IN input.txt:\n"); /* header */
 }
 
 /* main function */
-int main(int argc, char *argv) {
+int main(int argc, char *argv[]) {
     readBoard();
     printBoard();
 
