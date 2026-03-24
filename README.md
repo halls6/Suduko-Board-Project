@@ -14,7 +14,8 @@ Will do later
 - Nick    : README.md, main.c, report.pdf, discussion.pdf, essay.pdf
 
 ## How to Compile
-later
+run gcc -c main.c
+or use makefile
 
 ## How to Run
 later
