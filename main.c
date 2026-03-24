@@ -1,9 +1,18 @@
 /*
  * Names           : Sofia Hall & Nick Viola
+ * Class           : CSC 345-02, Dr. Uddipan Das
+ * School          : The College of New Jersey
  * File Name       : main.c
- * Description     : LATER
+ * Description     : The file below uses two different
+ * methods to find if a Sudoku puzzle is a solution or not.
+ * It reads in an input file and prints it to the terminal.
+ * Then, depending on the method, rows, columns, and subgrids
+ * are checken. Lastly, it times how long it takes to find
+ * if there is a solution based on the number of threads
+ * and outputs the answer and the time it took to the terminal.
  * 
 */
+
 #define _POSIX_C_SOURCE 199309L
 #include <stdio.h>
 #include <stdlib.h>
@@ -139,7 +148,7 @@ void *checkCols2(void *param) {
     pthread_exit(NULL);
 }
 
-/* function to re)ad in board from input.txt */
+/* function to read in board from input.txt */
 void readBoard() {
     FILE *fptr = fopen("input.txt", "r");
 
