@@ -7,7 +7,7 @@
  * methods to find if a Sudoku puzzle is a solution or not.
  * It reads in an input file and prints it to the terminal.
  * Then, depending on the method, rows, columns, and subgrids
- * are checken. Lastly, it times how long it takes to find
+ * are checked. Lastly, it times how long it takes to find
  * if there is a solution based on the number of threads
  * and outputs the answer and the time it took to the terminal.
  * 
