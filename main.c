@@ -292,10 +292,6 @@ int main(int argc, char *argv[]) {
 
     }
 
-    else if (mode == 3) {
-
-    }
-
     else { printf("Input error. Please choose between 1, 2, or 3.\n"); }
 
     return 0;
