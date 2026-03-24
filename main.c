@@ -8,14 +8,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <time.h>
 
 /* structure for passing data to threads */
 typedef struct {
     int row;
     int column;
+    int index;
 } parameters;
 
-int results[11]; /* 11 total threads for validating puzzle */
+int results[27]; /* max 27 threads for both methods */
 int board[9][9]; /* store sudoku numbers */
 
 /* checks each row if it contains all digits 1-9 */
