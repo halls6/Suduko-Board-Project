@@ -4,7 +4,7 @@
  * Description     : LATER
  * 
 */
-
+#define _POSIX_C_SOURCE 199309L
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -176,7 +176,7 @@ int main(int argc, char *argv[]) {
     int cols[9] = {0, 3, 6, 0, 3, 6, 0, 3, 6};
 
     struct timespec start, end;
-    clock_gettime(CLOCKS_PER_SEC, &start);
+    clock_gettime(CLOCK_MONOTONIC, &start);
 
     if (mode == 1) { /* Method 1: 11 threads */
         /* thread 1: all rows, thread 2: all cols, threads 3-11: subgrids */
@@ -221,8 +221,8 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        clock_gettime(CLOCKS_PER_SEC, &end);
-        double elapsed = (end.tv_sec - start.tv_sec) + (end.tv_sec - start.tv_sec) / 1e9;
+        clock_gettime(CLOCK_MONOTONIC, &end);
+        double elapsed = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
     /* printing to the terminal */
     if (valid) { printf("SOLUTION: YES (%.4f seconds)\n", elapsed); }
     else { printf("SOLUTION: NO\n"); }
