@@ -20,8 +20,13 @@ typedef struct {
 int results[27]; /* max 27 threads for both methods */
 int board[9][9]; /* store sudoku numbers */
 
+/* METHOD 1 (11 THREADS) FUNCS */
+
 /* checks each row if it contains all digits 1-9 */
 void *checkRows(void *param) {
+    parameters *data = (parameters*) param;
+    int idx = data->index;
+    
     int seen[10];
     
     for (int i = 0; i < 9; i++) {
@@ -31,14 +36,14 @@ void *checkRows(void *param) {
 
         for (int j = 0; j < 9; j++) {
             int val = board[i][j];
-            if (seen[val] != 0) {
-                results[0] = 0; /* returns 0 if duplicates */
+            if (val < 1 || val > 9 || seen[val] != 0) {
+                results[idx] = 0; /* returns 0 if duplicates */
                 pthread_exit(NULL);
             }
             seen[val] = 1;
         }
     }
-    results[0] = 1; /* returns 1 if all digits 1-9 are seen */
+    results[idx] = 1; /* returns 1 if all digits 1-9 are seen */
     pthread_exit(NULL);
 }
 
@@ -65,7 +70,7 @@ void *checkCols(void *param) {
 }
 
 /* checks 3 by 3 if it contains all digits 1-9 */
-void *checkSquare(void *param) {
+void *checkSquare(void *param) { /* used by method 1 and 2 */
     parameters *data = (parameters *) param;
     int row = data->row;
     int col = data->column;
@@ -89,6 +94,8 @@ void *checkSquare(void *param) {
     results[index] = 1; /* returns 1 if 1-9 is in square */
     pthread_exit(NULL);
 }
+
+/* METHOD 2 (27 THREADS) FUNCS */
 
 /* function to re)ad in board from input.txt */
 void readBoard() {
