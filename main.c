@@ -18,7 +18,24 @@ typedef struct {
 int results[11]; /* 11 total threads for validating puzzle */
 int board[9][9]; /* store sudoku numbers */
 
-/* function to read in board from input.txt */
+/* function to check all rows */
+void *checkRows() {
+    int seen[10];
+    
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 10; j++) {
+            seen[j] = 0;
+        }
+
+        for (int j = 0; j < 9; j++) {
+            seen[board[i][j]];
+        }
+    }
+    results[0] = 1;
+    pthread_exit(NULL);
+}
+
+/* function to re)ad in board from input.txt */
 void readBoard() {
     FILE *fptr = fopen("input.txt", "r");
 
@@ -47,7 +64,12 @@ printf("BOARD STATE IN input.txt:\n"); /* header */
 int main(int argc, char *argv) {
     readBoard();
 
-    printBoard();
-    printf("SOLUTION: NO\n");
+    /* printBoard();
+    printf("SOLUTION: NO\n"); */
+
+    pthread_t tid;
+    pthread_create(&tid, NULL, checkRows, NULL);
+    pthread_join(tid, NULL);
+    printf("rows result: %d\n", results[0]);
     return 0;
 }
