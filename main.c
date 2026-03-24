@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 int board[9][9]; /* store sudoku numbers */
 
@@ -36,11 +37,10 @@ printf("BOARD STATE IN input.txt:\n"); /* header */
 }
 
 /* main function */
-int main() {
+int main(int argc, char *argv) {
     readBoard();
-    printf("%d\n", board[0][0]);
 
     printBoard();
-    printf("SOLUTION: No\n");
+    printf("SOLUTION: NO\n");
     return 0;
 }
