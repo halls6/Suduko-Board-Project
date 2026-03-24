@@ -223,12 +223,13 @@ int main(int argc, char *argv[]) {
 
         clock_gettime(CLOCK_MONOTONIC, &end);
         double elapsed = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
-    /* printing to the terminal */
-    if (valid) { printf("SOLUTION: YES (%.4f seconds)\n", elapsed); }
-    else { printf("SOLUTION: NO\n"); }
+    
+        /* printing to the terminal */
+        if (valid) { printf("SOLUTION: YES (%.4f seconds)\n", elapsed); }
+        else { printf("SOLUTION: NO\n"); }
 
-    /* freeing the memory */
-    for (int i = 0; i < 11; i++) { free(data[i]); }
+        /* freeing the memory */
+        for (int i = 0; i < 11; i++) { free(data[i]); }
 
     }
 
@@ -251,7 +252,7 @@ int main(int argc, char *argv[]) {
             pthread_create(&threads[i], NULL, checkRows2, data[i]);
         }
 
-        /* col thread */
+        /* col threads */
         for (int i = 9; i < 18; i++) {
             data[i]->row = 0;
             data[i]->column = i - 9;
@@ -278,12 +279,16 @@ int main(int argc, char *argv[]) {
                 break;
             }
         }
-    /* printing to the terminal */
-    if (valid) { printf("SOLUTION: YES\n"); }
-    else { printf("SOLUTION: NO\n"); }
 
-    /* freeing the memory */
-    for (int i = 0; i < 27; i++) { free(data[i]); }
+        clock_gettime(CLOCK_MONOTONIC, &end);
+        double elapsed = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+    
+        /* printing to the terminal */
+        if (valid) { printf("SOLUTION: YES (%.4f seconds)\n", elapsed); }
+        else { printf("SOLUTION: NO\n"); }
+
+        /* freeing the memory */
+        for (int i = 0; i < 27; i++) { free(data[i]); }
 
     }
 
