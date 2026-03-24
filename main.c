@@ -166,45 +166,64 @@ printf("BOARD STATE IN input.txt:\n"); /* header */
 
 /* main function */
 int main(int argc, char *argv[]) {
+    int mode = atoi(argv[1]);
+
     readBoard();
     printBoard();
 
-    pthread_t threads[11]; /* creating the 11 threads */
-
-    /* threads for rows and cols */
-    pthread_create(&threads[0], NULL, checkRows1, NULL);
-    pthread_create(&threads[1], NULL, checkCols1, NULL);
-
-    /* 9 threads for 3 by 3 square */
-    parameters *data[9];
+    /* 9 threads for 3 by 3 square (used by both methods)*/
     int rows[9] = {0, 0, 0, 3, 3, 3, 6, 6, 6}; /* starting positions*/
     int cols[9] = {0, 3, 6, 0, 3, 6, 0, 3, 6};
 
-    /* using checkSquare for the threads */
-    for (int i = 0; i < 9; i++) {
-        data[i] = (parameters *) malloc(sizeof(parameters));
-        data[i]->row = rows[i];
-        data[i]->column = cols[i];
-        pthread_create(&threads[i + 2], NULL, checkSquare, data[i]);
-    }
+    if (mode == 1) { /* Method 1: 11 threads */
+        /* thread 1: all rows, thread 2: all cols, threads 3-11: subgrids */
 
-    /* waiting for threads to finish */
-    for (int i = 0; i < 11; i++) {
-        pthread_join(threads[i], NULL);
-    }
+        pthread_t threads[11];
+        parameters* data[11];
 
-    int valid = 1;
-    for (int i = 0; i < 11; i++) {
-        if (results[i] == 0) {
-            valid = 0;
-            break;
+        for (int i = 0; i < 11; i++) {
+            data[i] = (parameters *) malloc(sizeof(parameters));
+            results[i] = 0;
         }
-    }
+
+        /* row thread */
+        data[0]->row = 0;
+        data[0]->column = 0;
+        data[0]->index = 1;
+        pthread_create(&threads[0], NULL, checkRows1, data[0]);
+
+        /* col thread */
+        data[1]->row = 0;
+        data[1]->column = 0;
+        data[1]->index = 0;
+        pthread_create(&threads[1], NULL, checkCols1, data[1]);
+
+        /* subgrids threads */
+        for (int i = 2; i < 11; i++) {
+            data[i]->row = rows[i - 2];
+            data[i]->column = cols[i - 2];
+            data[i]->index = i;
+            pthread_create(&threads[i], NULL, checkSquare, data[i]);
+        }
+
+        for (int i = 0; i < 11; i++) {
+            pthread_join(threads[i], NULL);
+        }
+
+        int valid = 1;
+        for (int i = 0; i < 11; i++) {
+            if (results[i] == 0) {
+                valid = 0;
+                break;
+            }
+        }
 
     if (valid) { printf("SOLUTION: YES\n"); }
     else { printf("SOLUTION: NO\n"); }
 
-    for (int i = 0; i < 9; i++) { free(data[i]); }
+    for (int i = 0; i < 11; i++) { free(data[i]); }
+
+    }
 
     return 0;
 }
