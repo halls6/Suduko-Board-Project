@@ -9,6 +9,10 @@ This repository is to track the work for the second project of CSC345.
 ## Project Description
 Will do later
 
+## Project Completion Split
+Sofia   : README.md, main.c, Makefile, input.txt, essay.pdf
+Nick    : README.md, main.c, report.pdf, discussion.pdf, essay.pdf
+
 ## How to Compile
 later
 
