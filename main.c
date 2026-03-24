@@ -281,5 +281,7 @@ int main(int argc, char *argv[]) {
 
     }
 
+    else { printf("Input error. Please choose between method 1 and 2.\n"); }
+
     return 0;
 }
