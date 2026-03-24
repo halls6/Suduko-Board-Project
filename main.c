@@ -49,6 +49,9 @@ void *checkRows(void *param) {
 
 /* checks each col if it contains all digits 1-9 */
 void *checkCols(void *param) {
+    parameters *data = (parameters*) param;
+    int idx = data->index;
+
     int seen[10];
     
     for (int i = 0; i < 9; i++) {
@@ -58,14 +61,14 @@ void *checkCols(void *param) {
 
         for (int j = 0; j < 9; j++) {
             int val = board[j][i];
-            if (seen[val] != 0) {
-                results[1] = 0; /* returns 0 if duplicates */
+            if (val < 1 || val > 9 || seen[val] != 0) {
+                results[idx] = 0; /* returns 0 if duplicates */
                 pthread_exit(NULL);
             }
             seen[val] = 1;
         }
     }
-    results[1] = 1; /* returns 1 if all digits 1-9 are seen */
+    results[idx] = 1; /* returns 1 if all digits 1-9 are seen */
     pthread_exit(NULL);
 }
 
