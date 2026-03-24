@@ -217,11 +217,67 @@ int main(int argc, char *argv[]) {
                 break;
             }
         }
-
+    /* printing to the terminal */
     if (valid) { printf("SOLUTION: YES\n"); }
     else { printf("SOLUTION: NO\n"); }
 
+    /* freeing the memory */
     for (int i = 0; i < 11; i++) { free(data[i]); }
+
+    }
+
+    if (mode == 2) { /* Method 2: 27 threads */
+        /* threads 1-9: each row, threads 10-18: each cols, threads 19-27: subgrids */
+
+        pthread_t threads[27];
+        parameters* data[27];
+
+        for (int i = 0; i < 27; i++) {
+            data[i] = (parameters *) malloc(sizeof(parameters));
+            results[i] = 0;
+        }
+
+        /* row threads */
+        for (int i = 0; i < 9; i++) {
+            data[i]->row = i;
+            data[i]->column = 0;
+            data[i]->index = i;
+            pthread_create(&threads[i], NULL, checkRows2, data[i]);
+        }
+
+        /* col thread */
+        for (int i = 9; i < 18; i++) {
+            data[i]->row = 0;
+            data[i]->column = i - 9;
+            data[i]->index = i;
+            pthread_create(&threads[i], NULL, checkRows2, data[i]);
+        }
+
+        /* subgrids threads */
+        for (int i = 18; i < 27; i++) {
+            data[i]->row = rows[i - 18];
+            data[i]->column = cols[i - 18];
+            data[i]->index = i;
+            pthread_create(&threads[i], NULL, checkSquare, data[i]);
+        }
+
+        for (int i = 0; i < 27; i++) {
+            pthread_join(threads[i], NULL);
+        }
+
+        int valid = 1;
+        for (int i = 0; i < 27; i++) {
+            if (results[i] == 0) {
+                valid = 0;
+                break;
+            }
+        }
+    /* printing to the terminal */
+    if (valid) { printf("SOLUTION: YES\n"); }
+    else { printf("SOLUTION: NO\n"); }
+
+    /* freeing the memory */
+    for (int i = 0; i < 27; i++) { free(data[i]); }
 
     }
 
