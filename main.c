@@ -25,6 +25,8 @@ void readBoard() {
 
 /* function to print out board */
 void printBoard() {
+printf("BOARD STATE IN input.txt:\n"); /* header */
+
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
             printf("%d ", board[i][j]);
@@ -39,5 +41,6 @@ int main() {
     printf("%d\n", board[0][0]);
 
     printBoard();
+    printf("SOLUTION: No\n");
     return 0;
 }
