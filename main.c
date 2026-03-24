@@ -67,9 +67,13 @@ int main(int argc, char *argv) {
     /* printBoard();
     printf("SOLUTION: NO\n"); */
 
-    pthread_t tid;
-    pthread_create(&tid, NULL, checkRows, NULL);
-    pthread_join(tid, NULL);
-    printf("rows result: %d\n", results[0]);
+   /* testing check rows */
+   /*
+        pthread_t tid;
+        pthread_create(&tid, NULL, checkRows, NULL);
+        pthread_join(tid, NULL);
+        printf("rows result: %d\n", results[0]);
+    */
+
     return 0;
 }
