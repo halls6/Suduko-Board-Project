@@ -4,6 +4,7 @@ all:
 	./main 1
 	./main 2
 
+
 clean:
 	rm main.o
 	rm main
