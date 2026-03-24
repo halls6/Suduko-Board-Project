@@ -35,6 +35,23 @@ void *checkRows() {
     pthread_exit(NULL);
 }
 
+/* function to check all rows */
+void *checkCols() {
+    int seen[10];
+    
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 10; j++) {
+            seen[j] = 0;
+        }
+
+        for (int j = 0; j < 9; j++) {
+            seen[board[j][i]];
+        }
+    }
+    results[1] = 1;
+    pthread_exit(NULL);
+}
+
 /* function to re)ad in board from input.txt */
 void readBoard() {
     FILE *fptr = fopen("input.txt", "r");
@@ -67,13 +84,15 @@ int main(int argc, char *argv) {
     /* printBoard();
     printf("SOLUTION: NO\n"); */
 
-   /* testing check rows */
-   /*
+   /* testing check rows & columns */
+
         pthread_t tid;
-        pthread_create(&tid, NULL, checkRows, NULL);
+        /* pthread_create(&tid, NULL, checkRows, NULL); /* ROWS */
+         pthread_create(&tid, NULL, checkCols, NULL); /* COLS */
         pthread_join(tid, NULL);
-        printf("rows result: %d\n", results[0]);
-    */
+        /* printf("rows result: %d\n", results[0]); /* ROWS */
+         printf("cols result: %d\n", results[1]); /* COLS */
+
 
     return 0;
 }
