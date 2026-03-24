@@ -292,7 +292,7 @@ int main(int argc, char *argv[]) {
 
     }
 
-    else { printf("Input error. Please choose between 1, 2, or 3.\n"); }
+    else { printf("Input error. Please choose between 1 or 2\n"); }
 
     return 0;
 }
