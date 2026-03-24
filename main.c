@@ -175,6 +175,9 @@ int main(int argc, char *argv[]) {
     int rows[9] = {0, 0, 0, 3, 3, 3, 6, 6, 6}; /* starting positions*/
     int cols[9] = {0, 3, 6, 0, 3, 6, 0, 3, 6};
 
+    struct timespec start, end;
+    clock_gettime(CLOCKS_PER_SEC, &start);
+
     if (mode == 1) { /* Method 1: 11 threads */
         /* thread 1: all rows, thread 2: all cols, threads 3-11: subgrids */
 
@@ -217,8 +220,11 @@ int main(int argc, char *argv[]) {
                 break;
             }
         }
+
+        clock_gettime(CLOCKS_PER_SEC, &end);
+        double elapsed = (end.tv_sec - start.tv_sec) + (end.tv_sec - start.tv_sec) / 1e9;
     /* printing to the terminal */
-    if (valid) { printf("SOLUTION: YES\n"); }
+    if (valid) { printf("SOLUTION: YES (%.4f seconds)\n", elapsed); }
     else { printf("SOLUTION: NO\n"); }
 
     /* freeing the memory */
@@ -226,7 +232,7 @@ int main(int argc, char *argv[]) {
 
     }
 
-    if (mode == 2) { /* Method 2: 27 threads */
+    else if (mode == 2) { /* Method 2: 27 threads */
         /* threads 1-9: each row, threads 10-18: each cols, threads 19-27: subgrids */
 
         pthread_t threads[27];
