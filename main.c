@@ -52,6 +52,27 @@ void *checkCols() {
     pthread_exit(NULL);
 }
 
+/* function to check 3 by 3 */
+void *check3by3(void *param) {
+    parameters *data = (parameters *) param;
+    int row = data->row;
+    int col = data->column;
+    int index = (row / 3) * 3 + (col / 3) + 2;
+
+    int seen[10];
+    for (int i = 0; i < 10; i++) {
+        seen[i] = 0;
+    }
+
+    for (int i = row; i < row + 3; i++) {
+        for (int j = col; j < col + 3; j++) {
+            seen[board[i][j]] = 1;
+        }
+    }
+    results[index] = 1;
+    pthread_exit(NULL);
+}
+
 /* function to re)ad in board from input.txt */
 void readBoard() {
     FILE *fptr = fopen("input.txt", "r");
@@ -83,16 +104,6 @@ int main(int argc, char *argv) {
 
     /* printBoard();
     printf("SOLUTION: NO\n"); */
-
-   /* testing check rows & columns */
-
-        pthread_t tid;
-        /* pthread_create(&tid, NULL, checkRows, NULL); /* ROWS */
-         pthread_create(&tid, NULL, checkCols, NULL); /* COLS */
-        pthread_join(tid, NULL);
-        /* printf("rows result: %d\n", results[0]); /* ROWS */
-         printf("cols result: %d\n", results[1]); /* COLS */
-
 
     return 0;
 }
