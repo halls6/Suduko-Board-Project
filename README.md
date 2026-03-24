@@ -4,7 +4,7 @@ This repository is to track the work for the second project of CSC345.
 
 ## Team Members
 - Sofia Hall (halls6)
-- Nick Viola (violan3)
+- Nick Viola (violan3) yay
 
 ## Project Description
 Will do later
