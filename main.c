@@ -9,6 +9,13 @@
 #include <stdlib.h>
 #include <pthread.h>
 
+/* structure for passing data to threads */
+typedef struct {
+    int row;
+    int column;
+} parameters;
+
+int results[11]; /* 11 total threads for validating puzzle */
 int board[9][9]; /* store sudoku numbers */
 
 /* function to read in board from input.txt */
