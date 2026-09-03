@@ -1,6 +1,6 @@
-# Project_2_CSC345
-# CSC 345 - Project 2: Multithreaded Sudoku Validator
-This repository is to track the work for the second project of CSC345. 
+# Project 2
+# Project 2: Multithreaded Sudoku Validator
+This repository is to track the work for the second project of Operating Systems. 
 
 ## Team Members
 - Sofia Hall (halls6)
